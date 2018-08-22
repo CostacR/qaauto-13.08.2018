@@ -137,6 +137,38 @@ public class LinkedinLoginTest {
     }
 
     @Test(enabled = false)
+    public void negativeTestTooShortPassword(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.linkedin.com/");
+        String titlePage = "Войти или зарегист5рироваться";
+        String userEmail = "nsczxfxthntq@gmail.com";
+        String userPassword = "tsp";
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
+        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+
+        WebElement userEmailField = driver.findElement(By.xpath("//input[@id='login-email']"));
+        WebElement userPasswordField =driver.findElement(By.xpath("//input[@id='login-password']"));
+        WebElement signInButton = driver.findElement(By.xpath("//input[@id='login-submit']"));
+
+        Assert.assertTrue(signInButton.isDisplayed(), "'Sign In' button is not displyed on Login Page");
+
+        userEmailField.sendKeys(userEmail);
+        userPasswordField.sendKeys(userPassword);
+        signInButton.click();
+
+        try {
+            sleep(3000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
+        WebElement alertMessage = driver.findElement(By.xpath("//div[@role='alert']"));
+        Assert.assertEquals(alertMessage.getText(), "There were one or more errors in your submission. Please correct the marked fields below.", "Alert not working");
+        WebElement alertLondLogin = driver.findElement(By.xpath("//*[@id='session_password-login-error']"));
+        Assert.assertEquals(alertLondLogin.getText(), "The password you provided must have at least 6 characters.", "Alert 'Long login not working");//проверка на максимальную длину пароля
+    }
+
+    @Test(enabled = false)
     public void negativeTestNoEmail(){
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.linkedin.com/");
@@ -232,7 +264,28 @@ public class LinkedinLoginTest {
     }
 
     @Test(enabled = false)
-    public void negativeTest(){
+    public void negativeNotValidEmailTest(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.linkedin.com/");
+        String titlePage = "Войти или зарегист5рироваться";
+        String userEmail = "nsczxfxthntqgmailcom";//><input type='text' name='session_key' class='login-email' tabindex='1' id='login-email'>";
+        String userPassword = "4838960q";
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
+        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+        WebElement userEmailField = driver.findElement(By.xpath("//input[@id='login-email']"));
+        WebElement userPasswordField =driver.findElement(By.xpath("//input[@id='login-password']"));
+        WebElement signInButton = driver.findElement(By.xpath("//input[@id='login-submit']"));
+        Assert.assertTrue(signInButton.isDisplayed(), "'Sign In' button is enabled");//кнопка не активна при отсутствии емейла
+        userEmailField.sendKeys(userEmail);
+        userPasswordField.sendKeys(userPassword);
+        signInButton.click();
+        try {
+            sleep(3000);
+        }catch (InterruptedException e){
+            e.printStackTrace();       }
+        WebElement alertMessage = driver.findElement(By.xpath("//div[@class='fieldgroup hide-label']//span[@id='session_key-login-error']"));
+        Assert.assertEquals(alertMessage.getText(),"Please enter a valid email address.", "Alert Message for valid email not work");
+        Assert.assertTrue(alertMessage.isEnabled(), "Alert message is visible.");
     }
 
     @Test (enabled = false)
@@ -267,4 +320,5 @@ public class LinkedinLoginTest {
         WebElement alertSecondRegistryLocator = driver.findElement(By.className("hopscotch-content"));
         Assert.assertEquals(alertSecondRegistryLocator.getText(),"Someone's already using that email. If that’s you, enter your Email and password here to sign in.", "Second regisrty Alert not work");
         }
+
  }
