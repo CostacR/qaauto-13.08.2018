@@ -3,35 +3,34 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static java.lang.Thread.sleep;
 
 public class LinkedinLoginTest {
+    WebDriver driver;
+
+    @BeforeMethod
+    public void beforeMethod(){
+        driver = new ChromeDriver();
+        driver.get("https://www.linkedin.com/");
+    }
+    @AfterMethod
+    public void afterMethod (){
+       // driver.quit();
+    }
+
     @Test //(enabled = false)
     public void succesefullLoginTest()   {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
-        String titlePage = "Войти или зарегистрироваться";
         String userEmail = "nsczxfxthntq@gmail.com";
         String userPassword = "4838960q";
         String userName = "Costa Jones";
-
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
-        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
-
-        WebElement userEmailField = driver.findElement(By.xpath("//input[@id='login-email']"));
-        WebElement userPasswordField =driver.findElement(By.xpath("//input[@id='login-password']"));
-        WebElement signInButton = driver.findElement(By.xpath("//input[@id='login-submit']"));
-
-        Assert.assertTrue(signInButton.isDisplayed(), "'Sign In' button is not displyed on Login Page(sting 35)");
-
-        userEmailField.sendKeys(userEmail);
-        userPasswordField.sendKeys(userPassword);
-        signInButton.click();
-
+        LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
+        Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
+        linkedInLoginPage.login(userEmail, userPassword);
         WebElement profileNavItem = driver.findElement(By.xpath("//li[@id='profile-nav-item']"));
         Assert.assertTrue(profileNavItem.isDisplayed(), "'Profile-nav-item ' button is not displyed on Login Page(sting 46)");
-
 
     Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/feed/", "Home page not loaded");
     By userNameLocator = By.xpath("//a[@class='tap-target profile-rail-card__actor-link block link-without-hover-visited ember-view']/span");
@@ -41,30 +40,13 @@ public class LinkedinLoginTest {
 
     @Test(enabled = false)
     public void negativeloginTest()   {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
-        String titlePage = "Войти или зарегист5рироваться";
         String userEmailWrong = "aa@l.com";
         String userPasswordWrong = "wrongPass";
-
+        LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
+        Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
         Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
-
-        WebElement userEmailField = driver.findElement(By.xpath("//input[@id='login-email']"));
-        WebElement userPasswordField =driver.findElement(By.xpath("//input[@id='login-password']"));
-        WebElement signInButton = driver.findElement(By.xpath("//input[@id='login-submit']"));
-
-        Assert.assertTrue(signInButton.isDisplayed(), "'Sign In' button is not displyed on Login Page(sting 35)");
-
-        userEmailField.sendKeys(userEmailWrong);
-        userPasswordField.sendKeys(userPasswordWrong);
-        signInButton.click();
-
-        try {
-            sleep(3000);
-        }catch (InterruptedException e){
-            e.printStackTrace();
-        }
+        linkedInLoginPage.login(userEmailWrong, userPasswordWrong);
 
         WebElement alertMessage = driver.findElement(By.xpath("//div[@role='alert']"));
         Assert.assertEquals(alertMessage.getText(), "There were one or more errors in your submission. Please correct the marked fields below.", "Alert not working");
@@ -72,8 +54,7 @@ public class LinkedinLoginTest {
 
     @Test(enabled = false)
     public void negativeTestOneThousandSymbolsEmail(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String titlePage = "Войти или зарегист5рироваться";
         String userEmail = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. N";
         String userPassword = "wrongPass";
@@ -104,8 +85,7 @@ public class LinkedinLoginTest {
 
     @Test(enabled = false)
     public void negativeTestOneThousandSymbolsPassword(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String titlePage = "Войти или зарегист5рироваться";
         String userEmail = "nsczxfxthntq@gmail.com";
         String userPassword = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. N";
@@ -136,8 +116,7 @@ public class LinkedinLoginTest {
 
     @Test(enabled = false)
     public void negativeTestTooShortPassword(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String titlePage = "Войти или зарегист5рироваться";
         String userEmail = "nsczxfxthntq@gmail.com";
         String userPassword = "tsp";
@@ -168,8 +147,7 @@ public class LinkedinLoginTest {
 
     @Test(enabled = false)
     public void negativeTestNoEmail(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String titlePage = "Войти или зарегист5рироваться";
         String userEmail = "";
         String userPassword = "4838960q";
@@ -192,8 +170,7 @@ public class LinkedinLoginTest {
 
     @Test(enabled = false)
     public void negativeTestNoPassword(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String userEmail = "nsczxfxthntq@gmail.com";
         String userPassword = "";
             Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
@@ -213,10 +190,32 @@ public class LinkedinLoginTest {
             Assert.assertTrue(alertMessage.isEnabled(), "Alert message is visible. This is wrong!");
     }
 
+    @Test(enabled = false)
+    public void negativeTestNoEmailNoPassword(){
+
+        String titlePage = "Войти или зарегист5рироваться";
+        String userEmail = "";
+        String userPassword = "";
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
+        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+        WebElement userEmailField = driver.findElement(By.xpath("//input[@id='login-email']"));
+        WebElement userPasswordField =driver.findElement(By.xpath("//input[@id='login-password']"));
+        WebElement signInButton = driver.findElement(By.xpath("//input[@id='login-submit']"));
+        Assert.assertTrue(signInButton.isDisplayed(), "'Sign In' button is enabled");//кнопка не активна при отсутствии емейла
+        userEmailField.sendKeys(userEmail);
+        userPasswordField.sendKeys(userPassword);
+        signInButton.click();
+        try {
+            sleep(3000);
+        }catch (InterruptedException e){
+            e.printStackTrace();       }
+        WebElement alertMessage = driver.findElement(By.xpath("//div[@role='alert']"));
+        Assert.assertTrue(alertMessage.isEnabled(), "Alert message is visible. This is wrong!");
+    }
+
     @Test (enabled = false)
     public void negativeTestWrongPassword(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String userEmail = "nsczxfxthntq@gmail.com";
         String userPassword = "wrongPassword";
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
@@ -239,8 +238,7 @@ public class LinkedinLoginTest {
 
     @Test (enabled = false)
     public void negativeTestWrongEmail(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String userEmail = "nsczxfxthntq10000000@gmail.com";
         String userPassword = "4838960q";
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
@@ -263,8 +261,7 @@ public class LinkedinLoginTest {
 
     @Test(enabled = false)
     public void negativeNotValidEmailWithoutAttachmentAndDotsTest(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String titlePage = "Войти или зарегист5рироваться";
         String userEmail = "nsczxfxthntqgmailcom";
         String userPassword = "4838960q";
@@ -288,8 +285,7 @@ public class LinkedinLoginTest {
 
     @Test(enabled = false)
     public void negativeNotValidEmailSpecialSymbolsWithoutAtTest(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String titlePage = "Войти или зарегист5рироваться";
         String userEmail = "12 ^#%$^&%^&^%&*&*(*&* ^567567567567";
         String userPassword = "4838960q";
@@ -313,8 +309,7 @@ public class LinkedinLoginTest {
 
     @Test(enabled = false)
     public void negativeNotValidEmailSpecialSymbolsWithAtTest(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String titlePage = "Войти или зарегист5рироваться";
 //        String userEmail = "12 ^#%$^&%^@&^%&*&*(*&* ^567567567567";
         String userEmail = "dasdasd@gmail.com<script>alert(!!!);</script>";
@@ -340,8 +335,7 @@ public class LinkedinLoginTest {
 
     @Test (enabled = false)
     public void repeatedRegistration()   {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
+
         String userFirstName = "Costa";
         String userSecondName = "Jones";
         String userEmail = "nsczxfxthntq@gmail.com";
