@@ -4,11 +4,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import static java.lang.Thread.sleep;
 
 public class LinkedinLoginTest {
-
     @Test //(enabled = false)
     public void succesefullLoginTest()   {
         WebDriver driver = new ChromeDriver();
@@ -287,6 +285,7 @@ public class LinkedinLoginTest {
         Assert.assertEquals(alertMessage.getText(),"Please enter a valid email address.", "Alert Message for valid email not work");
         Assert.assertTrue(alertMessage.isEnabled(), "Alert message is visible.");
     }
+
     @Test(enabled = false)
     public void negativeNotValidEmailSpecialSymbolsWithoutAtTest(){
         WebDriver driver = new ChromeDriver();
@@ -311,6 +310,7 @@ public class LinkedinLoginTest {
         Assert.assertEquals(alertMessage.getText(),"Be sure to include \"+\" and your country code.", "Alert Message for valid email not work");
         Assert.assertTrue(alertMessage.isEnabled(), "Alert message is visible.");
     }
+
     @Test(enabled = false)
     public void negativeNotValidEmailSpecialSymbolsWithAtTest(){
         WebDriver driver = new ChromeDriver();
@@ -370,5 +370,4 @@ public class LinkedinLoginTest {
         WebElement alertSecondRegistryLocator = driver.findElement(By.className("hopscotch-content"));
         Assert.assertEquals(alertSecondRegistryLocator.getText(),"Someone's already using that email. If that’s you, enter your Email and password here to sign in.", "Second regisrty Alert not work");
         }
-
  }
