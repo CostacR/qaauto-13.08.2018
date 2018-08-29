@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import static java.lang.Thread.sleep;
 
 public class LinkedInLoginPage {
@@ -48,5 +49,12 @@ public class LinkedInLoginPage {
         }catch (InterruptedException e){
             e.printStackTrace();
         }
+    }
+    public boolean isLoginCorrectEntered(String userEmail) {
+        return  !userEmail.equals("");
+    }
+    public boolean isPasswordCorrectEntered(String userPassword) {
+
+        return !userPassword.equals("");
     }
 }
