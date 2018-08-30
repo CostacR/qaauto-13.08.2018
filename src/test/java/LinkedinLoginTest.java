@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static java.lang.Thread.sleep;
 
@@ -21,23 +22,40 @@ public class LinkedinLoginTest {
        // driver.quit();
     }
 
-    @Test (enabled = false)
-    public void succesefullLoginTest()   {
-        String userEmail = "nsczxfxthntq@gmail.com";
-        String userPassword = "4838960q";
+    @DataProvider
+    public Object[][] validDataProvider() {
+        return new Object[][]{
+                { "nsczxfxthntq@gmail.com", "4838960q" },
+           //     { "NSCZxfxthntq@gmail.com", "4838960q" },
+
+        };
+    }
+
+    @Test
+            (dataProvider ="validDataProvider")
+            //(enabled = false)
+    public void successefulLoginTest(String userEmail, String userPassword)   {
+
         String userName = "Costa Jones";
 
         LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
         linkedInLoginPage.login(userEmail, userPassword);
-        WebElement profileNavItem = driver.findElement(By.xpath("//li[@id='profile-nav-item']"));
-        Assert.assertTrue(profileNavItem.isDisplayed(), "'Profile-nav-item ' button is not displyed on Login Page");
 
-    Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/feed/", "Home page not loaded");
-    By userNameLocator = By.xpath("//a[@class='tap-target profile-rail-card__actor-link block link-without-hover-visited ember-view']/span");
-    WebElement userNameField = driver.findElement(userNameLocator);
-    Assert.assertEquals(userNameField.getText(), userName, "User name wrong");
     }
+
+    @Test(enabled = false)
+    public void emptyLoginTest(){
+        String userEmail = "";
+        String userPassword = "";
+
+        LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
+        Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
+
+        linkedInLoginPage  = linkedInLoginPage.login(userEmail, userPassword);
+        Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Home page is not loaded");
+    }
+//method returns different Page Objects поискать в гугле
 
     @Test(enabled = false)
     public void negativeTestNoEmail(){
@@ -121,8 +139,7 @@ public class LinkedinLoginTest {
 
         LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
-        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+
         linkedInLoginPage.login(userEmail, userPassword);
 
         LinkedinAlertPage linkedinAlertPage = new LinkedinAlertPage(driver);
@@ -153,8 +170,7 @@ public class LinkedinLoginTest {
 
         LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
-        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+
         linkedInLoginPage.login(userEmail, userPassword);
 
         LinkedinAlertPage linkedinAlertPage = new LinkedinAlertPage(driver);
@@ -170,8 +186,7 @@ public class LinkedinLoginTest {
 
         LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
-        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+
         linkedInLoginPage.login(userEmail, userPassword);
 
         LinkedinAlertPage linkedinAlertPage = new LinkedinAlertPage(driver);
@@ -187,14 +202,12 @@ public class LinkedinLoginTest {
 
         LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
-        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+
         linkedInLoginPage.login(userEmail, userPassword);
 
         LinkedinAlertPage linkedinAlertPage = new LinkedinAlertPage(driver);
         linkedinAlertPage.isAlertMessageVisible(alertMessage);
     }
-
 
     @Test(enabled = false)
     public void negativeNotValidEmailWithoutAttachmentAndDotsTest(){
@@ -204,14 +217,12 @@ public class LinkedinLoginTest {
 
         LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
-        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+
         linkedInLoginPage.login(userEmail, userPassword);
 
         LinkedinAlertPage linkedinAlertPage = new LinkedinAlertPage(driver);
         linkedinAlertPage.isAlertMessageVisible(alertMessage);
     }
-
 
     @Test(enabled = false)
     public void negativeNotValidEmailSpecialSymbolsWithoutAtTest(){
@@ -221,8 +232,7 @@ public class LinkedinLoginTest {
 
         LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
-        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+
         linkedInLoginPage.login(userEmail, userPassword);
 
         LinkedinAlertPage linkedinAlertPage = new LinkedinAlertPage(driver);
@@ -239,8 +249,7 @@ public class LinkedinLoginTest {
 
         LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
-        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
+
         linkedInLoginPage.login(userEmail, userPassword);
 
         LinkedinAlertPage linkedinAlertPage = new LinkedinAlertPage(driver);
@@ -248,7 +257,6 @@ public class LinkedinLoginTest {
         Assert.assertEquals(alertMessageLocator.getText(), alertMessage, "XO-XO!!");
         System.out.println(alertMessageLocator.getText());
     }
-
 
     @Test (enabled = false)//повторная регистрация по
     public void repeatedRegistration()   {
@@ -281,4 +289,6 @@ public class LinkedinLoginTest {
         WebElement alertSecondRegistryLocator = driver.findElement(By.className("hopscotch-content"));
         Assert.assertEquals(alertSecondRegistryLocator.getText(),"Someone's already using that email. If that’s you, enter your Email and password here to sign in.", "Second regisrty Alert not work");
         }
+
+
  }
