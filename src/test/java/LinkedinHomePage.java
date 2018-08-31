@@ -1,27 +1,29 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LinkedinHomePage {
     private WebDriver driver;
+    @FindBy (xpath = "//li[@id='profile-nav-item']")
     private WebElement profileNavItem;
+
+    @FindBy (xpath = "//input[@id='login-submit']")
     private WebElement signInButton;
 
+    @FindBy (xpath = "//button[@id='nav-settings__dropdown-trigger']")
+    WebElement buttonNavProfile;
 
+    @FindBy (xpath = "//a[@href='/m/logout/']")
+    WebElement buttonLogOut;
 
     public LinkedinHomePage(WebDriver driver) {
         this.driver=driver;
-        initElements();
+        PageFactory.initElements(driver, this);
     }
 
     //добавить проверку вызова кнопки "Log Out"
-    //применить метод Page Factory
-    private void initElements(){
-         profileNavItem = driver.findElement(By.xpath("//li[@id='profile-nav-item']"));
-//        signInButton = driver.findElement(By.xpath("//input[@id='login-submit']"));
-
-
-    }
     public String getCurrentUrl(){
 
         return driver.getCurrentUrl();
@@ -36,6 +38,11 @@ public class LinkedinHomePage {
                 && getCurrentTitle().equals("LinkedIn")
 //                && signInButton.isDisplayed()
                 ;
+    }
+
+    public boolean isLogOutButtonAble() {
+        buttonNavProfile.click();
+        return buttonLogOut.isDisplayed();
     }
 
 }

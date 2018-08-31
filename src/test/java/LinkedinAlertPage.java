@@ -1,18 +1,19 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
-import static java.lang.Thread.sleep;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
     public class LinkedinAlertPage {
         private WebDriver driver;
-        public String alertMessage;
-        private WebElement alertMessageText;
+        @FindBy (xpath = "//span[@id='session_key-login-error']")
+        private WebElement alertMessageLoginText;
+
+        @FindBy (xpath = "//span[@id='session_password-login-error']")
+        private WebElement alertMessagePasswordText;
 
     public LinkedinAlertPage (WebDriver driver){
         this.driver=driver;
+        PageFactory.initElements(driver, this);
     }
         public String getCurrentUrl(){
 
@@ -23,11 +24,14 @@ import static java.lang.Thread.sleep;
             return  driver.getTitle();
         }
 
-    public boolean isAlertMessageVisible(String alertMessage){
-        alertMessageText = driver.findElement(By.xpath("//span[@id='session_password-login-error']"));
+    public boolean isAlertMessageEmailVisible(String alertMessageEmail){
         return getCurrentUrl().equals("https://www.linkedin.com/uas/login-submit")
                     && getCurrentTitle().equals("Sign In to LinkedIn")
-                    && alertMessageText.equals(alertMessage);
+                    && alertMessageLoginText.equals(alertMessageEmail);
                         }
-
+        public boolean isAlertMessagePasswordVisible(String alertMessagePassword){
+            return getCurrentUrl().equals("https://www.linkedin.com/uas/login-submit")
+                    && getCurrentTitle().equals("Sign In to LinkedIn")
+                    && alertMessagePasswordText.equals(alertMessagePassword);
+        }
 }
