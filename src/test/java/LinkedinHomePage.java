@@ -23,7 +23,6 @@ public class LinkedinHomePage {
         PageFactory.initElements(driver, this);
     }
 
-    //добавить проверку вызова кнопки "Log Out"
     public String getCurrentUrl(){
 
         return driver.getCurrentUrl();
