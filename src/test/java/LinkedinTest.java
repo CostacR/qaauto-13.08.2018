@@ -91,9 +91,7 @@ public class LinkedinTest {
 
         linkedinLoginSubmitPage.isAlertMessageEmailVisible(alertMessageEmail);
         linkedinLoginSubmitPage.isAlertMessagePasswordVisible(alertMessagePassword);
-
     }
-
 
     @Test(enabled = false)
     public void negativeNotValidEmailSpecialSymbolsWithAtTest(){

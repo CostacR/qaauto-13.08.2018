@@ -22,8 +22,6 @@ public class LinkedinHomePage extends LinkedinBasePage{
         PageFactory.initElements(driver, this);
     }
 
-
-
     public boolean isPageLoaded(){
         return getCurrentUrl().equals("https://www.linkedin.com/feed/")
                 && getCurrentTitle().equals("LinkedIn")
@@ -35,5 +33,4 @@ public class LinkedinHomePage extends LinkedinBasePage{
         buttonNavProfile.click();
         return buttonLogOut.isDisplayed();
     }
-
 }

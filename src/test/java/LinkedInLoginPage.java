@@ -21,8 +21,6 @@ public class LinkedInLoginPage extends LinkedinBasePage{
 //        PageFactory.initElements(driver, LinkedinHomePage.class);                                     //вичитывает аннотации из LoginHomePage
     }                                                                                                   //таблица соответствий (название / тип локатора/ локатор)
 
-
-
     public boolean isPageLoaded(){
         return getCurrentUrl().equals("https://www.linkedin.com/")
                 && getCurrentTitle().equals("LinkedIn: Log In or Sign Up")
