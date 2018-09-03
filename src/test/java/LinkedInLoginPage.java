@@ -4,9 +4,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import static java.lang.Thread.sleep;
 
-public class LinkedInLoginPage {
-
-    private WebDriver driver;
+public class LinkedInLoginPage extends LinkedinBasePage{
 
     @FindBy(xpath = "//input[@id='login-email']")//аннотация заменяет initElements
     private WebElement userEmailField;
@@ -19,19 +17,12 @@ public class LinkedInLoginPage {
 
     public LinkedInLoginPage(WebDriver driver){
         this.driver=driver;
-        PageFactory.initElements(driver, this);                                                 //this - текущий. Вічитать локаторі из елементов ФиндБай
-        //таблица соответствий (название / тип локатора/ локатор)
-//        PageFactory.initElements(driver, LinkedinHomePage.class);//вичитывает аннотации из LoginHomePage
-//        initElements();
-    }
+        PageFactory.initElements(driver, this);                                                   //this - текущий. Вычитать локаторы из елементов FindBy
+//        PageFactory.initElements(driver, LinkedinHomePage.class);                                     //вичитывает аннотации из LoginHomePage
+    }                                                                                                   //таблица соответствий (название / тип локатора/ локатор)
 
-    public String getCurrentUrl(){
 
-        return driver.getCurrentUrl();
-    }
-    public String getCurrentTitle(){
-        return  driver.getTitle();
-    }
+
     public boolean isPageLoaded(){
         return getCurrentUrl().equals("https://www.linkedin.com/")
                 && getCurrentTitle().equals("LinkedIn: Log In or Sign Up")
@@ -53,7 +44,7 @@ public class LinkedInLoginPage {
         }
 
         if (getCurrentUrl().contains("/login-submit")) {
-            return (T) new LinkedinAlertPage(driver);
+            return (T) new LinkedinLoginSubmitPage(driver);
         }
         else {
             return (T) new LinkedInLoginPage(driver);

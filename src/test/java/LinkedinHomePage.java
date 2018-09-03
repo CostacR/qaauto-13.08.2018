@@ -1,10 +1,9 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LinkedinHomePage {
+public class LinkedinHomePage extends LinkedinBasePage{
     private WebDriver driver;
     @FindBy (xpath = "//li[@id='profile-nav-item']")
     private WebElement profileNavItem;
@@ -13,24 +12,17 @@ public class LinkedinHomePage {
     private WebElement signInButton;
 
     @FindBy (xpath = "//button[@id='nav-settings__dropdown-trigger']")
-    WebElement buttonNavProfile;
+    private WebElement buttonNavProfile;
 
     @FindBy (xpath = "//a[@href='/m/logout/']")
-    WebElement buttonLogOut;
+    private WebElement buttonLogOut;
 
     public LinkedinHomePage(WebDriver driver) {
         this.driver=driver;
         PageFactory.initElements(driver, this);
     }
 
-    public String getCurrentUrl(){
 
-        return driver.getCurrentUrl();
-    }
-
-    public String getCurrentTitle(){
-        return  driver.getTitle();
-    }
 
     public boolean isPageLoaded(){
         return getCurrentUrl().equals("https://www.linkedin.com/feed/")
@@ -39,7 +31,7 @@ public class LinkedinHomePage {
                 ;
     }
 
-    public boolean isLogOutButtonAble() {
+    public boolean isLogOutButtonAble() {//проверка кнопки LogOut
         buttonNavProfile.click();
         return buttonLogOut.isDisplayed();
     }

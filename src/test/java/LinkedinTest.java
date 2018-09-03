@@ -11,11 +11,14 @@ import static java.lang.Thread.sleep;
 
 public class LinkedinTest {
     WebDriver driver;
+    LinkedInLoginPage linkedInLoginPage;
 
     @BeforeMethod
     public void beforeMethod(){
         driver = new ChromeDriver();
         driver.get("https://www.linkedin.com/");
+        LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
+
     }
     @AfterMethod
     public void afterMethod (){
@@ -24,52 +27,51 @@ public class LinkedinTest {
     @DataProvider
     public Object[][] validDataProvider() {
         return new Object[][]{
-//              {"email", "password", "alertMessageEmail", "alertMessagePassword"}
-                { "nsczxfxthntq@gmail.com", "4838960q", "", "" },
-//                { "Nsczxfxthntq@gmail.com", "4838960q", "", "" },
-//                { "nsczxfxthntq@gmail.COM", "4838960q", "", "" },
+//              {"email", "password"}
+                { "nsczxfxthntq@gmail.com", "4838960q" },
+//                { "Nsczxfxthntq@gmail.com", "4838960q" },
+//                { "nsczxfxthntq@gmail.COM", "4838960q" },
         };
     }
     @DataProvider
     public Object[][] emptyDataProvider() {
         return new Object[][]{
 //              {"email", "password", "alertMessageEmail", "alertMessagePassword"}
-                { "", "4838960q", "", "" },
-                { "nsczxfxthntq@gmail.com", "", "", "" },
-                { "", "", "", "" },
+                { "", "4838960q" },
+                { "nsczxfxthntq@gmail.com", ""},
+                { "", "" },
         };
     }
     @DataProvider
     public Object[][] wrongDataProvider() {
         return new Object[][]{
 //              {"email", "password", "alertMessageEmail", "alertMessagePassword"}
-                { "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. N", "wrongpassword", "The text you provided is too long (the maximum length is 128 characters, your text contains 1,000 characters).", "" },
-                { "a@b.com", "wrongpassword", "Hmm, that's not the right password. Please try again or", "" },
-                { "nsczxfxthntq@gmail.com", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. N", "", "The password you provided must have at most 400 characters." },
-                { "nsczxfxthntq@gmail.com", "short", "", "The password you provided must have at least 6 characters." },
-                { "nsczxfxgmail.com", "short", "Please enter a valid email address.", "The password you provided must have at least 6 characters." },
-                { "nsczxfxthntq@gmail.com", "wrongPassword", "", "Hmm, that's not the right password. Please try again or" },
-                { "nsczxfxthntq10000000000@gmail.com", "4838960q", "", "Hmm, that's not the right password. Please try again or" },
-                { "nsczxfxthntqgmailcom", "4838960q", "Please enter a valid email address.", "" },
-                { "12 ^#%$^&%^&^%&*&*(*&* ^567567567567", "4838960q", "Be sure to include \"+\" and your country code.", "" },
+                { "a765b.com", "wrong", "Please enter a valid email address.", "The password you provided must have at least 6 characters."},
+
+//                { "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. N", "wrongpassword", "The text you provided is too long (the maximum length is 128 characters, your text contains 1,000 characters).", "" },
+//                { "a@b.com", "wrongpassword", "Hmm, that's not the right password. Please try again or", "" },
+//                { "nsczxfxthntq@gmail.com", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. N", "", "The password you provided must have at most 400 characters." },
+//                { "nsczxfxthntq@gmail.com", "short", "", "The password you provided must have at least 6 characters." },
+//                { "nsczxfxgmail.com", "short", "Please enter a valid email address.", "The password you provided must have at least 6 characters." },
+//                { "nsczxfxthntq@gmail.com", "wrongPassword", "", "Hmm, that's not the right password. Please try again or" },
+//                { "nsczxfxthntq10000000000@gmail.com", "4838960q", "", "Hmm, that's not the right password. Please try again or" },
+//                { "nsczxfxthntqgmailcom", "4838960q", "Please enter a valid email address.", "" },
+//                { "12 ^#%$^&%^&^%&*&*(*&* ^567567567567", "4838960q", "Be sure to include \"+\" and your country code.", "" },
         };
     }
 
     @Test (dataProvider ="validDataProvider")
-    public void successefulLoginTest(String userEmail, String userPassword, String alertMessageEmail, String alertMessagePassword) {
-        LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
+    public void successefulLoginTest(String userEmail, String userPassword) {
+
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        linkedInLoginPage.login(userEmail, userPassword);
+        LinkedinHomePage linkedinHomePage = linkedInLoginPage.login(userEmail, userPassword);
 
-        LinkedinHomePage linkedinHomePage = new LinkedinHomePage(driver);
         Assert.assertTrue(linkedinHomePage.isLogOutButtonAble(),"'Log Out' button disable"); //проверка кнопки LogOut
-
     }
 
     @Test (dataProvider ="emptyDataProvider")
-    public void emptyLoginPasswordTest(String userEmail, String userPassword, String alertMessageEmail, String alertMessagePassword){
+    public void emptyLoginPasswordTest(String userEmail, String userPassword){
 
-        LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
 
         linkedInLoginPage  = linkedInLoginPage.login(userEmail, userPassword);
@@ -79,14 +81,17 @@ public class LinkedinTest {
 
     @Test(dataProvider ="wrongDataProvider")
     public void negativeloginTest(String userEmail, String userPassword, String alertMessageEmail, String alertMessagePassword)   {
-        LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        linkedInLoginPage.login(userEmail, userPassword);
+        LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedInLoginPage.login(userEmail, userPassword);
 
-        LinkedinAlertPage linkedinAlertPage = new LinkedinAlertPage(driver);
+        //добавить проверку на общий Alert вверху страницы
+        Assert.assertEquals(linkedinLoginSubmitPage.getAlertMessageText(), "There were one or more errors in your submission. Please correct the marked fields below.", "Alert message is wrong");
+        Assert.assertEquals(linkedinLoginSubmitPage.getUserEmailAlertMessageText(), alertMessageEmail, "Alert message is wrong");
+        Assert.assertEquals(linkedinLoginSubmitPage.getUserPasswordAlertMessageText(), alertMessagePassword, "Alert message is wrong");
 
-        linkedinAlertPage.isAlertMessageEmailVisible(alertMessageEmail);
-        linkedinAlertPage.isAlertMessagePasswordVisible(alertMessagePassword);
+        linkedinLoginSubmitPage.isAlertMessageEmailVisible(alertMessageEmail);
+        linkedinLoginSubmitPage.isAlertMessagePasswordVisible(alertMessagePassword);
+
     }
 
 
@@ -103,7 +108,7 @@ public class LinkedinTest {
 
         linkedInLoginPage.login(userEmail, userPassword);
 
-        LinkedinAlertPage linkedinAlertPage = new LinkedinAlertPage(driver);
+        LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage(driver);
         WebElement alertMessageLocator = driver.findElement(By.xpath("//*[@id='app__container']/div[1]/header"));
         Assert.assertEquals(alertMessageLocator.getText(), alertMessage, "XO-XO!!");
         System.out.println(alertMessageLocator.getText());
@@ -143,3 +148,8 @@ public class LinkedinTest {
 
 
  }
+ //Домашка
+ //1 залогинится
+// 2 ввести в поле поиск "НР"
+// 3 в результатах поиска найти слова "НР" и колличество выведеных результатов
+//+бонус проверить колличество страниц с результатами
