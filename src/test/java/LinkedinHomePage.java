@@ -4,6 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import static java.lang.Thread.sleep;
+
 public class LinkedinHomePage extends LinkedinBasePage{
     private WebDriver driver;
 
@@ -19,8 +21,9 @@ public class LinkedinHomePage extends LinkedinBasePage{
     @FindBy (xpath = "//a[@href='/m/logout/']")
     private WebElement buttonLogOut;
 
-    @FindBy (xpath = "//input[@role='combobox']")
-    private WebElement searchTextField;
+    @FindBy (xpath = "//input[@placeholder and @role='combobox']")
+
+    private WebElement searchField;
 
     public LinkedinHomePage(WebDriver driver) {
         this.driver=driver;
@@ -28,8 +31,8 @@ public class LinkedinHomePage extends LinkedinBasePage{
     }
 
     public boolean isPageLoaded(){
-        return getCurrentUrl().equals("https://www.linkedin.com/feed/")
-                && getCurrentTitle().equals("LinkedIn")
+        return getCurrentUrl().contains(":/feed/")
+                && getCurrentTitle().toLowerCase().contains("LinkedIn")
 //                && signInButton.isDisplayed()
                 ;
     }
@@ -40,10 +43,16 @@ public class LinkedinHomePage extends LinkedinBasePage{
         return buttonLogOut.isDisplayed();
     }
 
-    public LinkedinSearchPage searchAndClick(String searchItem) {
-        searchTextField.click();
-        searchTextField.sendKeys(searchItem);
-        searchTextField.sendKeys(Keys.ENTER);
+    public LinkedinSearchPage search(String searchItem)   {
+        searchField.sendKeys(searchItem);
+        searchField.sendKeys(Keys.ENTER);
+
+
+        try {
+            sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return new LinkedinSearchPage(driver);
     }
 
