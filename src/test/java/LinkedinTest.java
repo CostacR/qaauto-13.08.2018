@@ -11,18 +11,18 @@ import static java.lang.Thread.sleep;
 
 public class LinkedinTest {
     WebDriver driver;
-    LinkedInLoginPage linkedInLoginPage;
+    LinkedinLoginPage linkedinLoginPage;
 
     @BeforeMethod
-    public void beforeMethod(){
+    public void beforeMethod() {
         driver = new ChromeDriver();
         driver.get("https://www.linkedin.com/");
-        LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
-
+        linkedinLoginPage = new LinkedinLoginPage(driver);
     }
+
     @AfterMethod
     public void afterMethod (){
-      //  driver.quit();
+          driver.quit();
     }
     @DataProvider
     public Object[][] validDataProvider() {
@@ -63,8 +63,8 @@ public class LinkedinTest {
     @Test (dataProvider ="validDataProvider")
     public void successefulLoginTest(String userEmail, String userPassword) {
 
-        Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        LinkedinHomePage linkedinHomePage = linkedInLoginPage.login(userEmail, userPassword);
+        Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded");
+        LinkedinHomePage linkedinHomePage = linkedinLoginPage.login(userEmail, userPassword);
 
         Assert.assertTrue(linkedinHomePage.isLogOutButtonAble(),"'Log Out' button disable"); //проверка кнопки LogOut
     }
@@ -72,17 +72,17 @@ public class LinkedinTest {
     @Test (dataProvider ="emptyDataProvider")
     public void emptyLoginPasswordTest(String userEmail, String userPassword){
 
-        Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
+        Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded");
 
-        linkedInLoginPage  = linkedInLoginPage.login(userEmail, userPassword);
-        Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Home page is not loaded");
+        linkedinLoginPage = linkedinLoginPage.login(userEmail, userPassword);
+        Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Home page is not loaded");
     }
 //method returns different Page Objects поискать в гугле
 
     @Test(dataProvider ="wrongDataProvider")
     public void negativeloginTest(String userEmail, String userPassword, String alertMessageEmail, String alertMessagePassword)   {
-        Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-        LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedInLoginPage.login(userEmail, userPassword);
+        Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded");
+        LinkedinLoginSubmitPage linkedinLoginSubmitPage = linkedinLoginPage.login(userEmail, userPassword);
 
         //добавить проверку на общий Alert вверху страницы
         Assert.assertEquals(linkedinLoginSubmitPage.getAlertMessageText(), "There were one or more errors in your submission. Please correct the marked fields below.", "Alert message is wrong");
@@ -101,7 +101,7 @@ public class LinkedinTest {
         String userPassword = "dasdasd@gmail.com></form><script>alert();</script>";
         String alertMessage = "Sorry, we need you to reset your password as a security precaution.";
 
-        LinkedInLoginPage linkedInLoginPage = new LinkedInLoginPage(driver);
+        LinkedinLoginPage linkedInLoginPage = new LinkedinLoginPage(driver);
         Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
 
         linkedInLoginPage.login(userEmail, userPassword);
@@ -142,12 +142,12 @@ public class LinkedinTest {
 
         WebElement alertSecondRegistryLocator = driver.findElement(By.className("hopscotch-content"));
         Assert.assertEquals(alertSecondRegistryLocator.getText(),"Someone's already using that email. If that’s you, enter your Email and password here to sign in.", "Second regisrty Alert not work");
-        }
+    }
 
 
- }
- //Домашка
- //1 залогинится
-// 2 ввести в поле поиск "НР"
-// 3 в результатах поиска найти слова "НР" и колличество выведеных результатов
-//+бонус проверить колличество страниц с результатами
+}
+// //Домашка
+// //1 залогинится
+//// 2 ввести в поле поиск "НР"
+//// 3 в результатах поиска найти слова "НР" и колличество выведеных результатов
+////+бонус проверить колличество страниц с результатами

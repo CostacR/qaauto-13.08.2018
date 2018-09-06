@@ -4,7 +4,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import static java.lang.Thread.sleep;
 
-public class LinkedInLoginPage extends LinkedinBasePage{
+public class LinkedinLoginPage extends LinkedinBasePage{
 
     @FindBy(xpath = "//input[@id='login-email']")//аннотация заменяет initElements
     private WebElement userEmailField;
@@ -15,7 +15,7 @@ public class LinkedInLoginPage extends LinkedinBasePage{
     @FindBy(xpath ="//input[@id='login-submit']")
     private WebElement signInButton;
 
-    public LinkedInLoginPage(WebDriver driver){
+    public LinkedinLoginPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver, this);                                                   //this - текущий. Вычитать локаторы из елементов FindBy
 //        PageFactory.initElements(driver, LinkedinHomePage.class);                                     //вичитывает аннотации из LoginHomePage
@@ -23,7 +23,7 @@ public class LinkedInLoginPage extends LinkedinBasePage{
 
     public boolean isPageLoaded(){
         return getCurrentUrl().equals("https://www.linkedin.com/")
-                && getCurrentTitle().equals("LinkedIn: Log In or Sign Up")
+                && getCurrentTitle().contains("LinkedIn")
                 && signInButton.isDisplayed()
                 ;
     }
@@ -45,9 +45,9 @@ public class LinkedInLoginPage extends LinkedinBasePage{
             return (T) new LinkedinLoginSubmitPage(driver);
         }
         else {
-            return (T) new LinkedInLoginPage(driver);
+            return (T) new LinkedinLoginPage(driver);
 //            return (T) this                                                           //другие варианеты записи
-//            return (T) PageFactory.initElements(driver, LinkedInLoginPage.class);     //другие варианеты записи
+//            return (T) PageFactory.initElements(driver, LinkedinLoginPage.class);     //другие варианеты записи
         }
     }
 
