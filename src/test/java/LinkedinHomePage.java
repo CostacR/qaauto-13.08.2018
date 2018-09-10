@@ -7,7 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 import static java.lang.Thread.sleep;
 
 public class LinkedinHomePage extends LinkedinBasePage{
-    private WebDriver driver;
 
     @FindBy (xpath = "//li[@id='profile-nav-item']")
     private WebElement profileNavItem;
@@ -22,7 +21,6 @@ public class LinkedinHomePage extends LinkedinBasePage{
     private WebElement buttonLogOut;
 
     @FindBy (xpath = "//input[@placeholder and @role='combobox']")
-
     private WebElement searchField;
 
     public LinkedinHomePage(WebDriver driver) {
@@ -30,11 +28,10 @@ public class LinkedinHomePage extends LinkedinBasePage{
         PageFactory.initElements(driver, this);
     }
 
-    public boolean isPageLoaded(){
-        return getCurrentUrl().contains(":/feed/")
-                && getCurrentTitle().toLowerCase().contains("LinkedIn")
-//                && signInButton.isDisplayed()
-                ;
+    public boolean isPageLoaded() {
+        return getCurrentUrl().equals("https://www.linkedin.com/feed/")
+                && getCurrentTitle().contains("LinkedIn")
+                && profileNavItem.isDisplayed();
     }
 
     public boolean isLogOutButtonAble() {//проверка кнопки LogOut

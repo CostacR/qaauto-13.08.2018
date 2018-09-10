@@ -3,12 +3,12 @@ import org.openqa.selenium.WebDriver;
 public class LinkedinBasePage {
     protected WebDriver driver;
 
-    public String getCurrentUrl(){
-
+    public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
 
-    public String getCurrentTitle(){
-        return  driver.getTitle();
+    public String getCurrentTitle() {
+        return driver.getTitle();
     }
+
 }

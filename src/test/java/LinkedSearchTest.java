@@ -10,17 +10,15 @@ import java.util.List;
 public class LinkedSearchTest extends LinkedinBasePage{
     WebDriver driver;
     LinkedinLoginPage linkedinLoginPage;
-
     @BeforeMethod
     public void beforeMethod() {
         driver = new ChromeDriver();
         driver.get("https://www.linkedin.com/");
         linkedinLoginPage = new LinkedinLoginPage(driver);
     }
-
     @AfterMethod
     public void afterMethod (){
-        //driver.quit();
+        driver.quit();
     }
     @Test
     public void basicSearchTest(){
@@ -28,12 +26,12 @@ public class LinkedSearchTest extends LinkedinBasePage{
         String userPassword = "4838960q";
         String serchTerm = "hr";
 
-//        Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");
+        Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");
         LinkedinHomePage linkedinHomePage = linkedinLoginPage.login(userEmail, userPassword);
-//        Assert.assertTrue(linkedinHomePage.isPageLoaded(), "Login page is not loaded.");
+        Assert.assertTrue(linkedinHomePage.isPageLoaded(), "Login page is not loaded.");
 
          LinkedinSearchPage linkedinSearchPage =  linkedinHomePage.search(serchTerm);
-//        Assert.assertTrue(linkedinSearchPage.isPageLoaded());
+        Assert.assertTrue(linkedinSearchPage.isPageLoaded());
         Assert.assertEquals(linkedinSearchPage.searchSizeResult(), 10, "Wrong number search results on SearchPage");
         List<String>searchResultList = linkedinSearchPage.getSearchResultList();
 

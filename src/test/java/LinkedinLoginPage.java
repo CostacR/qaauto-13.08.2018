@@ -15,18 +15,20 @@ public class LinkedinLoginPage extends LinkedinBasePage{
     @FindBy(xpath ="//input[@id='login-submit']")
     private WebElement signInButton;
 
+    @FindBy (xpath = "//a[@class='link-forgot-password']")
+    private WebElement fogotPasswordLink;
+
     public LinkedinLoginPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver, this);                                                   //this - текущий. Вычитать локаторы из елементов FindBy
 //        PageFactory.initElements(driver, LinkedinHomePage.class);                                     //вичитывает аннотации из LoginHomePage
     }                                                                                                   //таблица соответствий (название / тип локатора/ локатор)
 
-    public boolean isPageLoaded(){
-        return getCurrentUrl().equals("https://www.linkedin.com/")
-                && getCurrentTitle().contains("LinkedIn")
+    public boolean isPageLoaded() {
+         return getCurrentUrl().equals("https://www.linkedin.com/")
+                && getCurrentTitle().contains("LinkedIn: Log In or Sign Up")
                 && signInButton.isDisplayed()
-                ;
-    }
+                ;}
 
     public <T> T login(String userEmail, String userPassword) {
         userEmailField.sendKeys(userEmail);
@@ -57,5 +59,10 @@ public class LinkedinLoginPage extends LinkedinBasePage{
     public boolean isPasswordCorrectEntered(String userPassword) {
 
         return !userPassword.equals("");
+    }
+
+    public LinkedInRequestPasswordResetPage resetLinkClick() {
+        fogotPasswordLink.click();
+        return new LinkedInRequestPasswordResetPage(driver);
     }
 }

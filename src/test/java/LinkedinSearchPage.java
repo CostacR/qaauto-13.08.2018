@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LinkedinSearchPage extends LinkedinBasePage{
-    private WebDriver driver;
+//    private WebDriver driver;
 
     @FindBy (xpath = "//h3[contains(@class, 'search-results__total')]")
     WebElement searchResultTotal;
