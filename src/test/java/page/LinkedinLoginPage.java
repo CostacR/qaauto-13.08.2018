@@ -1,7 +1,10 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import static java.lang.Thread.sleep;
 
 public class LinkedinLoginPage extends LinkedinBasePage{
@@ -21,7 +24,7 @@ public class LinkedinLoginPage extends LinkedinBasePage{
     public LinkedinLoginPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver, this);                                                   //this - текущий. Вычитать локаторы из елементов FindBy
-//        PageFactory.initElements(driver, LinkedinHomePage.class);                                     //вичитывает аннотации из LoginHomePage
+//        PageFactory.initElements(driver, page.LinkedinHomePage.class);                                     //вичитывает аннотации из LoginHomePage
     }                                                                                                   //таблица соответствий (название / тип локатора/ локатор)
 
     public boolean isPageLoaded() {
@@ -49,7 +52,7 @@ public class LinkedinLoginPage extends LinkedinBasePage{
         else {
             return (T) new LinkedinLoginPage(driver);
 //            return (T) this                                                           //другие варианеты записи
-//            return (T) PageFactory.initElements(driver, LinkedinLoginPage.class);     //другие варианеты записи
+//            return (T) PageFactory.initElements(driver, page.LinkedinLoginPage.class);     //другие варианеты записи
         }
     }
 

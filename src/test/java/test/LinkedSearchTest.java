@@ -1,25 +1,14 @@
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+package test;
 
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import page.LinkedinHomePage;
+import page.LinkedinSearchPage;
 import java.util.List;
 
-public class LinkedSearchTest extends LinkedinBasePage{
-    WebDriver driver;
-    LinkedinLoginPage linkedinLoginPage;
-    @BeforeMethod
-    public void beforeMethod() {
-        driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
-        linkedinLoginPage = new LinkedinLoginPage(driver);
-    }
-    @AfterMethod
-    public void afterMethod (){
-        driver.quit();
-    }
+public class LinkedSearchTest extends LinkedinBaseTest {
+
     @Test
     public void basicSearchTest(){
         String userEmail = "nsczxfxthntq@gmail.com";

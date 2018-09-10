@@ -1,6 +1,8 @@
+package page;
+
 import static java.lang.Thread.sleep;
 
-public class UserEmailRead extends LinkedinBasePage{
+public class UserEmailRead extends LinkedinBasePage {
 
 
     public LinkedinNewPasswordPage recoveryLinkClick() {

@@ -1,22 +1,12 @@
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+package test;
+
 import org.testng.Assert;
 import org.testng.annotations.*;
+import page.LinkedinHomePage;
+import page.LinkedinSearchPage;
 
-public class LinkedInLoginScenarioTest extends LinkedinBasePage{
-    WebDriver driver;
-    LinkedinLoginPage linkedinLoginPage;
+public class LinkedInLoginScenarioTest extends LinkedinBaseTest {
 
-    @BeforeMethod
-    public void beforeMethod(){
-        driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
-        linkedinLoginPage = new LinkedinLoginPage(driver);
-    }
-    @AfterMethod
-    public void afterMethod(){
-//        driver.quit();
-    }
     @DataProvider
     public Object[][] validDataProvider() {
         return new Object[][]{

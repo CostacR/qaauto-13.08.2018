@@ -1,31 +1,17 @@
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+package test;
+
+
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+
 import org.testng.annotations.Test;
+import page.*;
 
-public class LinkedInPasswordResetTest extends LinkedinBasePage{
-    WebDriver driver;
-    LinkedinLoginPage linkedinLoginPage;
-    @BeforeMethod
-    public void beforeMethod() {
-        driver = new ChromeDriver();
-        driver.get("https://www.linkedin.com/");
-        linkedinLoginPage = new LinkedinLoginPage(driver);
-    }
-    @AfterMethod
-    public void afterMethod() {
-     //   driver.quit();
-    }
-
-
+public class LinkedInPasswordResetTest extends  LinkedinBaseTest{
 
     @Test
     public void passwordResetTest() {
         String userEmail = "nsczxfxthntq@gmail.com";
         String userNewPassword = "4838960w";
-
 
         Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");
         LinkedInRequestPasswordResetPage linkedInResetPasswordFindAccountPage = linkedinLoginPage.resetLinkClick();
@@ -42,9 +28,6 @@ public class LinkedInPasswordResetTest extends LinkedinBasePage{
         linkedinLoginPage.login(userEmail,userNewPassword);
         Assert.assertTrue(linkedinHomePage.isPageLoaded(),"Home page is not loaded.");
         Assert.assertTrue(linkedinHomePage.isLogOutButtonAble(), "LogOut not working");
-
-
-
 
     }
 }
