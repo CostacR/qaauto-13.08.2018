@@ -40,6 +40,12 @@ public class LinkedinHomePage extends LinkedinBasePage{
         return buttonLogOut.isDisplayed();
     }
 
+    public LinkedinLoginPage isLogOutButtonClick() {//проверка кнопки LogOut
+        buttonNavProfile.click();
+         buttonLogOut.click();
+         return new LinkedinLoginPage(driver);
+    }
+
     public LinkedinSearchPage search(String searchItem)   {
         searchField.sendKeys(searchItem);
         searchField.sendKeys(Keys.ENTER);

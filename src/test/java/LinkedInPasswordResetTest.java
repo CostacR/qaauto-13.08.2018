@@ -26,6 +26,7 @@ public class LinkedInPasswordResetTest extends LinkedinBasePage{
         String userEmail = "nsczxfxthntq@gmail.com";
         String userNewPassword = "4838960w";
 
+
         Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");
         LinkedInRequestPasswordResetPage linkedInResetPasswordFindAccountPage = linkedinLoginPage.resetLinkClick();
 
@@ -36,6 +37,13 @@ public class LinkedInPasswordResetTest extends LinkedinBasePage{
         Assert.assertTrue(linkedinNewPasswordPage.isPageLoaded(), "Choose new password page is not loaded.");
         LinkedinHomePage linkedinHomePage = linkedinPasswordSubmitPage.submitButtonClick();
         Assert.assertTrue(linkedinHomePage.isPageLoaded(),"Home page is not loaded.");
+        Assert.assertTrue(linkedinHomePage.isLogOutButtonAble(), "LogOut not working");
+        LinkedinLoginPage linkedinLoginPage = linkedinHomePage.isLogOutButtonClick();
+        linkedinLoginPage.login(userEmail,userNewPassword);
+        Assert.assertTrue(linkedinHomePage.isPageLoaded(),"Home page is not loaded.");
+        Assert.assertTrue(linkedinHomePage.isLogOutButtonAble(), "LogOut not working");
+
+
 
 
     }

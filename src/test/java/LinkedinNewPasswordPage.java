@@ -29,8 +29,8 @@ public class LinkedinNewPasswordPage extends LinkedinBasePage {
 
 
     public boolean isPageLoaded() {
-        return getCurrentUrl().contains("reset/")
-                && getCurrentTitle().contains("LinkedIn")
+        return getCurrentUrl().contains("checkpoint/rp/")
+                && getCurrentTitle().contains("Reset")
                 && chooseNewPasswordText.getText().equals("Finally, choose a new password.");
     }
 
