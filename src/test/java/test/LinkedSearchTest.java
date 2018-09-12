@@ -12,7 +12,7 @@ public class LinkedSearchTest extends LinkedinBaseTest {
     @Test
     public void basicSearchTest(){
         String userEmail = "nsczxfxthntq@gmail.com";
-        String userPassword = "4838960q";
+        String userPassword = "4838960w";
         String serchTerm = "hr";
 
         Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");

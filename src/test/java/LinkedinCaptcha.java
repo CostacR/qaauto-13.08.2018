@@ -1,7 +1,7 @@
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import page.LinkedinBasePage;
-import page.UserEmailRead;
+import page.UserEmailReadPage;
 
 import static java.lang.Thread.sleep;
 
@@ -12,7 +12,7 @@ public class LinkedinCaptcha extends LinkedinBasePage {
     WebElement captcha;
 
 
-    public UserEmailRead captchaClick() {
+    public UserEmailReadPage captchaClick() {
         try {
             sleep(5000);
         } catch (InterruptedException e) {
@@ -20,6 +20,6 @@ public class LinkedinCaptcha extends LinkedinBasePage {
         }
         //  captcha.click();
 
-        return new UserEmailRead();
+        return new UserEmailReadPage();
     }
 }

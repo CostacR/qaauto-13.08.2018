@@ -40,18 +40,34 @@ public class LinkedInRequestPasswordResetPage extends LinkedinBasePage {
         String messageFrom = "security-noreply@linkedin.com";
 
 
-        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 150);
-//        System.out.println("Content: " + message);
+        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 120);
+        System.out.println("Content: " + message);
+        System.out.println(" ");
+        System.out.println("Link: "+messageSearchResetLink(message));
         messageSearchResetLink(message);
+        driver.get(messageSearchResetLink(message));
 
         try {
-            sleep(120000);
+            sleep(20000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return new LinkedinNewPasswordPage(driver);
     }
-    public boolean messageSearchResetLink(String message){
-        return message.contains("email_security_password_reset_checkpoint");
+    public String messageSearchResetLink(String message){
+
+        String correctLink;
+        String correctLinkStartPoint;
+        String correctLinkEndPoint;
+
+        int startPoint = message.indexOf("Чтобы изменить пароль в LinkedIn, нажмите")+51;
+        correctLinkStartPoint = message.substring(startPoint, startPoint+700);
+        int endPoint = correctLinkStartPoint.indexOf("style=");
+        correctLinkEndPoint = message.substring(startPoint, startPoint+endPoint);
+        correctLink = correctLinkEndPoint;
+
+        return correctLink;
+
+
     }
 }

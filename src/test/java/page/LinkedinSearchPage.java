@@ -40,7 +40,7 @@ public class LinkedinSearchPage extends LinkedinBasePage{
         return  driver.getTitle();
     }
     public boolean isPageLoaded(){
-        return getCurrentUrl().contains("/search/result/")
+        return getCurrentUrl().contains("/search/results/")
                 && getCurrentTitle().contains("Поиск")
                 && searchResultTotal.isDisplayed()
                 ;
