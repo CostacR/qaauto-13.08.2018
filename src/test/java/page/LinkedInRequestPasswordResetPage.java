@@ -1,5 +1,6 @@
 package page;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,28 +34,37 @@ public class LinkedInRequestPasswordResetPage extends LinkedinBasePage {
 //                ;
 //    }
 
-    public LinkedinNewPasswordPage resetButton(String userEmail) {
-        GMailService gMailService = new GMailService();
+    public LinkedinNewPasswordPage navigateToLinkFromEmail(String userEmail) {
+        //
         gMailService.connect();
 
         userEmailField.sendKeys(userEmail);
         userEmailField.sendKeys(Keys.ENTER);
-
-        String messageSubject = "данное сообщение содержит ссылку для изменения пароля";
+                String messageSubject = "данное сообщение содержит ссылку для изменения пароля";
         String messageTo = "nsczxfxthntq@gmail.com";
         String messageFrom = "security-noreply@linkedin.com";
 
-        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 120);
-//        System.out.println("Content: " + message);
-//        System.out.println(" ");
-//        System.out.println("Link: "+messageSearchResetLink(message));
+                String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 120);
+
+                String resetPasswordLink=
+                        StringUtils.substringBetween(message,
+                        "Чтобы изменить пароль в LinkedIn, нажмите, click <a href=\"",
+                        "\" style").replace("amp", "");
         messageSearchResetLink(message);
 
-        try {
-            sleep(20000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+
+//
+//        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 120);
+////        System.out.println("Content: " + message);
+////        System.out.println(" ");
+////        System.out.println("Link: "+messageSearchResetLink(message));
+//
+//        try {
+//            sleep(20000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return new LinkedinNewPasswordPage(driver);
     }
     public String messageSearchResetLink(String message){
@@ -64,10 +74,17 @@ public class LinkedInRequestPasswordResetPage extends LinkedinBasePage {
         String correctLinkEndPoint;
 
         int startPoint = message.indexOf("Чтобы изменить пароль в LinkedIn, нажмите")+51;
-        correctLinkStartPoint = message.substring(startPoint, message.length()-startPoint);
+        System.out.println(startPoint);
+        correctLinkStartPoint = message.substring(startPoint, message.length());
         int endPoint = correctLinkStartPoint.indexOf(" style=")-1;
         correctLinkEndPoint = message.substring(startPoint, startPoint+endPoint);
         correctLink = correctLinkEndPoint.replace("&amp;","&");
+        System.out.println("Message lenth "+message.length());
+
+        System.out.println("Start point "+startPoint);
+        System.out.println("End point "+endPoint);
+
+
         try {
             sleep(20000);
         } catch (InterruptedException e) {

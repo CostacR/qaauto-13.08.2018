@@ -28,9 +28,10 @@ public class LinkedinSearchPage extends LinkedinBasePage{
     @FindBy (xpath = "//span[@class='search-filters-bar__top-filter-text Sans-13px-black-55% flex-shrink-zero ml4']")
     public WebElement searchFiltersField;
 
-    public LinkedinSearchPage(WebDriver driver){
+    public LinkedinSearchPage(WebDriver driver) {
         this.driver=driver;
         PageFactory.initElements(driver, this);
+        waitUntilElementVisible(searchResultTotal, 10);
         }
     public String getCurrentUrl(){
 
@@ -39,6 +40,7 @@ public class LinkedinSearchPage extends LinkedinBasePage{
     public String getCurrentTitle(){
         return  driver.getTitle();
     }
+
     public boolean isPageLoaded(){
         return getCurrentUrl().contains("/search/results/")
                 && getCurrentTitle().contains("Поиск")

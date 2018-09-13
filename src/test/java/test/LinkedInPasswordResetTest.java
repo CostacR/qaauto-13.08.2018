@@ -20,7 +20,7 @@ public class LinkedInPasswordResetTest extends  LinkedinBaseTest{
         LinkedInRequestPasswordResetPage linkedInRequestPasswordResetPage = linkedinLoginPage.resetLinkClick();
         Assert.assertTrue(linkedInRequestPasswordResetPage.isPageLoaded(), "Reset page is not loaded.");
 
-        LinkedinNewPasswordPage linkedinNewPasswordPage = linkedInRequestPasswordResetPage.resetButton(userEmail);
+        LinkedinNewPasswordPage linkedinNewPasswordPage = linkedInRequestPasswordResetPage.navigateToLinkFromEmail(userEmail);
         LinkedinPasswordSubmitPage linkedinPasswordSubmitPage = linkedinNewPasswordPage.newPassword(userNewPassword);
         Assert.assertTrue(linkedinNewPasswordPage.isPageLoaded(), "Choose new password page is not loaded.");
 
@@ -35,3 +35,5 @@ public class LinkedInPasswordResetTest extends  LinkedinBaseTest{
 
     }
 }
+//упростить код
+//максимально сократить код

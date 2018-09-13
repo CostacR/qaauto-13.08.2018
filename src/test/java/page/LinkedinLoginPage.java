@@ -7,6 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import static java.lang.Thread.sleep;
 
+/**
+ * LinkedinLogin Page Object class.
+ *
+ */
 public class LinkedinLoginPage extends LinkedinBasePage{
 
     @FindBy(xpath = "//input[@id='login-email']")//аннотация заменяет initElements
@@ -21,6 +25,11 @@ public class LinkedinLoginPage extends LinkedinBasePage{
     @FindBy (xpath = "//a[@class='link-forgot-password']")
     private WebElement fogotPasswordLink;
 
+    /**
+     * Constructor for LinkedinLoginPage.
+     *
+     * @param driver - driver instance from tests.
+     */
     public LinkedinLoginPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver, this);                                                   //this - текущий. Вычитать локаторы из елементов FindBy
@@ -33,6 +42,13 @@ public class LinkedinLoginPage extends LinkedinBasePage{
                 && signInButton.isDisplayed()
                 ;}
 
+    /**
+     * User login by username/password.
+     * @param userEmail - String with userEmail. (user email (login) for enter to Linkedin.com)
+     * @param userPassword - String with password. (user password for enter to Linkedin.com)
+     * @param <T> generic type to return different PageObjects.
+     * @return - on of corresponding PageObjects LinkedinHomePage/LinkedinLoginSubmitPage/LinkedinLoginPage
+     */
     public <T> T login(String userEmail, String userPassword) {
         userEmailField.sendKeys(userEmail);
         userPasswordField.sendKeys(userPassword);
