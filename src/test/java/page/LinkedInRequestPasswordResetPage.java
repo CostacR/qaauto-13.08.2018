@@ -27,6 +27,11 @@ public class LinkedInRequestPasswordResetPage extends LinkedinBasePage {
                 && getCurrentTitle().contains("LinkedIn")
                 && signInButton.isDisplayed()
                 ;}
+//    public boolean isMessageContainsLink(String message, String correctLink) {
+//        return  message.contains(correctLink)
+//                && correctLink.contains("security_password_reset_checkpoint")
+//                ;
+//    }
 
     public LinkedinNewPasswordPage resetButton(String userEmail) {
         GMailService gMailService = new GMailService();
@@ -39,13 +44,11 @@ public class LinkedInRequestPasswordResetPage extends LinkedinBasePage {
         String messageTo = "nsczxfxthntq@gmail.com";
         String messageFrom = "security-noreply@linkedin.com";
 
-
         String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 120);
-        System.out.println("Content: " + message);
-        System.out.println(" ");
-        System.out.println("Link: "+messageSearchResetLink(message));
+//        System.out.println("Content: " + message);
+//        System.out.println(" ");
+//        System.out.println("Link: "+messageSearchResetLink(message));
         messageSearchResetLink(message);
-        driver.get(messageSearchResetLink(message));
 
         try {
             sleep(20000);
@@ -61,13 +64,27 @@ public class LinkedInRequestPasswordResetPage extends LinkedinBasePage {
         String correctLinkEndPoint;
 
         int startPoint = message.indexOf("Чтобы изменить пароль в LinkedIn, нажмите")+51;
-        correctLinkStartPoint = message.substring(startPoint, startPoint+700);
-        int endPoint = correctLinkStartPoint.indexOf("style=");
+        correctLinkStartPoint = message.substring(startPoint, message.length()-startPoint);
+        int endPoint = correctLinkStartPoint.indexOf(" style=")-1;
         correctLinkEndPoint = message.substring(startPoint, startPoint+endPoint);
-        correctLink = correctLinkEndPoint;
+        correctLink = correctLinkEndPoint.replace("&amp;","&");
+        try {
+            sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.get(correctLink);
+
+        try {
+            sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return correctLink;
-
-
     }
+
+
+
 }
