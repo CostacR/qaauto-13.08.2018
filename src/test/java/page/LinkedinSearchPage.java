@@ -33,6 +33,7 @@ public class LinkedinSearchPage extends LinkedinBasePage{
         PageFactory.initElements(driver, this);
         waitUntilElementVisible(searchResultTotal, 10);
         }
+
     public String getCurrentUrl(){
 
         return driver.getCurrentUrl();

@@ -26,7 +26,7 @@ public class LinkedinBasePage {
      * @param timeOutInSec
      * @return
      */
-    private WebElement waitUntilElementVisible (WebElement webElement, int timeOutInSec){
+    protected WebElement waitUntilElementVisible (WebElement webElement, int timeOutInSec){
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSec);
         return wait.until(ExpectedConditions.visibilityOf(webElement));
 
