@@ -8,6 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import static java.lang.Thread.sleep;
 
+/**
+ *
+ */
 public class LinkedinHomePage extends LinkedinBasePage{
 
     @FindBy (xpath = "//li[@id='profile-nav-item']")

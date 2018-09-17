@@ -1,15 +1,10 @@
 package test;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import page.LinkedinHomePage;
-import page.LinkedinLoginPage;
 import page.LinkedinLoginSubmitPage;
-
-import static java.lang.Thread.sleep;
 
 public class LinkedinTest extends LinkedinBaseTest{
 
@@ -72,6 +67,16 @@ public class LinkedinTest extends LinkedinBaseTest{
         Assert.assertTrue(linkedinHomePage.isLogOutButtonAble(),"'Log Out' button disable"); //проверка кнопки LogOut
     }
 
+    /**
+     * Test scenario with empty date (useremail, password or both)
+     * @param userEmail
+     * @param userPassword
+     *
+     * Open login page
+     * Verify login page is loaded
+     * Login with empty date
+     * Verify login page is loaded
+     */
     @Test (dataProvider ="emptyDataProvider")
     public void emptyLoginPasswordTest(String userEmail, String userPassword){
 
@@ -80,8 +85,22 @@ public class LinkedinTest extends LinkedinBaseTest{
         linkedinLoginPage = linkedinLoginPage.login(userEmail, userPassword);
         Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Home page is not loaded");
     }
-//method returns different Page Objects поискать в гугле
 
+
+    /**
+     * Test scenario with invalid enter date
+     *
+     * @param userEmail
+     * @param userPassword
+     * @param alertMessageEmail - alert message for wrong user email
+     * @param alertMessagePassword- alert message for wrong user password
+     *
+     * Open login page
+     * Verify login page is loaded
+     * Login with wrong date
+     * Verify alert page is loaded
+     * Verify alert message is loaded
+     */
     @Test(dataProvider ="wrongDataProvider")
     public void negativeloginTest(String userEmail, String userPassword, String alertMessageEmail, String alertMessagePassword)   {
         Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded");
@@ -96,61 +115,5 @@ public class LinkedinTest extends LinkedinBaseTest{
         linkedinLoginSubmitPage.isAlertMessagePasswordVisible(alertMessagePassword);
     }
 
-    @Test(enabled = false)
-    public void negativeNotValidEmailSpecialSymbolsWithAtTest(){
-//        String userEmail = "12 ^#%$^&%^@&^%&*&*(*&* ^567567567567";
-        String userEmail = "dasdasd@gmail.com";
-//        String userEmail = "ЯЯЯ<a>ЯЯЯ";
-        String userPassword = "dasdasd@gmail.com></form><script>alert();</script>";
-        String alertMessage = "Sorry, we need you to reset your password as a security precaution.";
-
-        LinkedinLoginPage linkedInLoginPage = new LinkedinLoginPage(driver);
-        Assert.assertTrue(linkedInLoginPage.isPageLoaded(), "Login page is not loaded");
-
-        linkedInLoginPage.login(userEmail, userPassword);
-
-        LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage(driver);
-        WebElement alertMessageLocator = driver.findElement(By.xpath("//*[@id='app__container']/div[1]/header"));
-        Assert.assertEquals(alertMessageLocator.getText(), alertMessage, "XO-XO!!");
-        System.out.println(alertMessageLocator.getText());
-    }
-
-    @Test (enabled = false)//повторная регистрация по
-    public void repeatedRegistration()   {
-
-        String userFirstName = "Costa";
-        String userSecondName = "Jones";
-        String userEmail = "nsczxfxthntq@gmail.com";
-        String userPassword = "4838960q";
-
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Page login URL is wrong!!!");
-        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up", "Login page Title is wrong");
-
-        WebElement firstNameLocator = driver.findElement(By.xpath("//input[@id='reg-firstname']"));
-        WebElement secondNameLocator = driver.findElement(By.xpath("//input[@id='reg-lastname']"));
-        WebElement userEmailLocator = driver.findElement(By.xpath("//input[@id='reg-email']"));
-        WebElement userPasswordLocator = driver.findElement(By.xpath("//input[@id='reg-password']"));
-        WebElement registryButtonLoator = driver.findElement(By.xpath("//input[@id='registration-submit']"));
-
-        firstNameLocator.sendKeys(userFirstName);
-        secondNameLocator.sendKeys(userSecondName);
-        userEmailLocator.sendKeys(userEmail);
-        userPasswordLocator.sendKeys(userPassword);
-        registryButtonLoator.click();
-
-        try {
-            sleep(3000);
-        }catch (InterruptedException e){
-            e.printStackTrace();       }
-
-        WebElement alertSecondRegistryLocator = driver.findElement(By.className("hopscotch-content"));
-        Assert.assertEquals(alertSecondRegistryLocator.getText(),"Someone's already using that email. If that’s you, enter your Email and password here to sign in.", "Second regisrty Alert not work");
-    }
-
 
 }
-// //Домашка
-// //1 залогинится
-//// 2 ввести в поле поиск "НР"
-//// 3 в результатах поиска найти слова "НР" и колличество выведеных результатов
-////+бонус проверить колличество страниц с результатами

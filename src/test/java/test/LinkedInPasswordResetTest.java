@@ -1,19 +1,33 @@
 package test;
 
-
 import org.testng.Assert;
-
 import org.testng.annotations.Test;
 import page.*;
 
 public class LinkedInPasswordResetTest extends  LinkedinBaseTest{
 
+    /**
+     * Reset password test
+//     * @param userEmail
+//     * @param userNewPassword
+     *
+     * Open login Page
+     * Verify login page is loaded
+     * Click "Forgot password"
+     * Verify Reset page is loaded
+     * Enter user email for recovery password
+     * Read user email which contains reset-link
+     * Choose new password
+     * Verify "Choose new password page" is loaded
+     * Login with new password
+     * Verify home page is loaded
+     * Verify "LogOut Button is able
+     */
     @Test
     public void passwordResetTest() {
         String userEmail = "nsczxfxthntq@gmail.com";
 //        String userEmail = "tim.banxy@gmail.com";
         String userNewPassword = "4838960w";
-
 
         Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");
 
@@ -35,5 +49,4 @@ public class LinkedInPasswordResetTest extends  LinkedinBaseTest{
 
     }
 }
-//упростить код
-//максимально сократить код
+

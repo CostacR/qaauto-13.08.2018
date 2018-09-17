@@ -15,8 +15,25 @@ public class LinkedInLoginScenarioTest extends LinkedinBaseTest {
         };
     }
 
+    /**
+     * Search Test scenario
+     *
+     * @param userEmail
+     * @param userPassword
+     * @param searchItem
+     *
+     * Open login page
+     * Verify login page is loaded
+     * Login with valid userEmail and userPassword
+     * Verify home page is loaded
+     * Search Searchterm which contains for 'hr'
+     * Verify Search page is loaded
+     * Verify 10 results displayed on search page
+     * Verify each result item contains searchTerm
+     *
+     */
     @Test (dataProvider ="validDataProvider")
-    public void scenarioTest(String userEmail, String userPassword, String searchItem) throws InterruptedException {
+    public void scenarioTest(String userEmail, String userPassword, String searchItem)  {
 
         Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");
         LinkedinHomePage linkedinHomePage = linkedinLoginPage.login(userEmail, userPassword);
@@ -25,15 +42,12 @@ public class LinkedInLoginScenarioTest extends LinkedinBaseTest {
         LinkedinSearchPage linkedinSearchPage = linkedinHomePage.search(searchItem);
         Assert.assertTrue(linkedinSearchPage.isPageLoaded(), "Search page is not loaded");
 
-//        Assert.assertEquals(linkedinSearchPage.getSearchResultsNumber(), 10, "Wrong number search results on SearchPage");
         Assert.assertEquals(linkedinSearchPage.searchSizeResult(), 10, "Wrong number search results on SearchPage");
-
 
         driver.manage().window().maximize();
         linkedinSearchPage.scrollDownPage();
 
         int count = linkedinSearchPage.searchSizeResult();
-//        Assert.assertTrue(count==10,"Size numbers results is false");
         linkedinSearchPage.searchItemContainTest();
         Assert.assertTrue(linkedinSearchPage.isPageLoaded(), "Search title is wrong");
     }

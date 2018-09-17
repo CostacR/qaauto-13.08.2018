@@ -6,6 +6,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import page.LinkedinLoginPage;
 
+/**
+ * Base test Page
+ * Contains start and finish methods of testing
+ * Initializes linkedinLoginPage and WebDriver
+ */
 public class LinkedinBaseTest {
 
     WebDriver driver;
