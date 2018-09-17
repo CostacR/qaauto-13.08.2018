@@ -1,11 +1,10 @@
 package page;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import static java.lang.Thread.sleep;
 
 /**
  * LinkedinLogin Page Object class.
@@ -32,7 +31,9 @@ public class LinkedinLoginPage extends LinkedinBasePage{
      */
     public LinkedinLoginPage(WebDriver driver){
         this.driver=driver;
-        PageFactory.initElements(driver, this);                                                   //this - текущий. Вычитать локаторы из елементов FindBy
+        PageFactory.initElements(driver, this);
+        assertElementIsVisible(signInButton, 5, "Login page is not loaded.");
+    //this - текущий. Вычитать локаторы из елементов FindBy
 //        PageFactory.initElements(driver, page.LinkedinHomePage.class);                                     //вичитывает аннотации из LoginHomePage
     }                                                                                                   //таблица соответствий (название / тип локатора/ локатор)
 
@@ -53,16 +54,12 @@ public class LinkedinLoginPage extends LinkedinBasePage{
         userEmailField.sendKeys(userEmail);
         userPasswordField.sendKeys(userPassword);
         signInButton.click();
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if (getCurrentUrl().contains("/feed")) {
+
+        if (isUrlContains("/feed", 5)) {
             return (T) new LinkedinHomePage(driver);
         }
 
-        if (getCurrentUrl().contains("/login-submit")) {
+        if (isUrlContains("/login-submit",5)) {
             return (T) new LinkedinLoginSubmitPage(driver);
         }
         else {

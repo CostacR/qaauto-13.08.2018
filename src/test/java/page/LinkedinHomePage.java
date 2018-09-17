@@ -6,10 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static java.lang.Thread.sleep;
 
 /**
- *
+ * Page Object class Home Page
  */
 public class LinkedinHomePage extends LinkedinBasePage{
 
@@ -55,12 +54,6 @@ public class LinkedinHomePage extends LinkedinBasePage{
         searchField.sendKeys(searchItem);
         searchField.sendKeys(Keys.ENTER);
 
-
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return new LinkedinSearchPage(driver);
     }
 

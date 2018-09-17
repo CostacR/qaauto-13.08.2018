@@ -63,3 +63,7 @@ public class LinkedInRequestPasswordResetPage extends LinkedinBasePage {
         return new LinkedinNewPasswordPage(driver);
     }
     }
+//
+//    перенсти код в метод FindAccount
+//    найти ссылку
+//

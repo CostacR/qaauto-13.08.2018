@@ -8,8 +8,6 @@ public class LinkedInPasswordResetTest extends  LinkedinBaseTest{
 
     /**
      * Reset password test
-//     * @param userEmail
-//     * @param userNewPassword
      *
      * Open login Page
      * Verify login page is loaded

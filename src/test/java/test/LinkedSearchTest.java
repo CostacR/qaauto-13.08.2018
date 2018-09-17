@@ -1,7 +1,10 @@
+package test;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.LinkedinHomePage;
 import page.LinkedinSearchPage;
+
 import java.util.List;
 
 public class LinkedSearchTest extends LinkedinBaseTest {
@@ -30,6 +33,3 @@ public class LinkedSearchTest extends LinkedinBaseTest {
             }
     }
 }
-
-//Задание
-//Написать тест Сброса пароля и заменить его

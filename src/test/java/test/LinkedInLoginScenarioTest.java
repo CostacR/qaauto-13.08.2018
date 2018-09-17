@@ -11,7 +11,7 @@ public class LinkedInLoginScenarioTest extends LinkedinBaseTest {
     public Object[][] validDataProvider() {
         return new Object[][]{
 //              {"email", "password", "searchItem"}
-                { "nsczxfxthntq@gmail.com", "4838960q", "hr"},
+                { "nsczxfxthntq@gmail.com", "4838960w", "hr"},
         };
     }
 
@@ -37,6 +37,7 @@ public class LinkedInLoginScenarioTest extends LinkedinBaseTest {
 
         Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");
         LinkedinHomePage linkedinHomePage = linkedinLoginPage.login(userEmail, userPassword);
+
         Assert.assertTrue(linkedinHomePage.isLogOutButtonAble(),"'Log Out' button disable"); //проверка кнопки LogOut
 
         LinkedinSearchPage linkedinSearchPage = linkedinHomePage.search(searchItem);
