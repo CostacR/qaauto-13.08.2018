@@ -1,0 +1,43 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Login tests suite" verbose="1" >
+    <parameter name="browserName" value="FireFox"/>
+
+    <test name="Successful test" >
+
+
+        <classes>
+            <class name="test.LinkedinTest">
+                <methods>
+                    <include name="successefulLoginTest" />
+                </methods>
+            </class>
+        </classes>
+
+    </test>
+
+    <test name="Empty data test" >
+
+        <classes>
+            <class name="test.LinkedinTest">
+                <methods>
+                    <include name="emptyLoginPasswordTest" />
+                </methods>
+            </class>
+        </classes>
+
+    </test>
+
+    <test name="Wrong data test" >
+
+        <classes>
+            <class name="test.LinkedinTest">
+                <methods>
+                    <include name="negativeloginTest" />
+                </methods>
+            </class>
+        </classes>
+
+    </test>
+
+</suite>

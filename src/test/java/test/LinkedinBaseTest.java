@@ -7,6 +7,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import page.LinkedinLoginPage;
 
 /**
@@ -18,15 +20,17 @@ public class LinkedinBaseTest {
     WebDriver driver;
     LinkedinLoginPage linkedinLoginPage;
 
+//    String browserChrome = "chrome";
+//    String browserFireFox = "firefox";
+//    String browserIE = "IE";
+//    String browserCurrent = browserChrome;
+
+    @Parameters({"browserName"})//add new parametr URL,
     @BeforeMethod
-    public void beforeMethod() {
-        String browserChrome = "chrome";
-        String browserFireFox = "firefox";
-        String browserIE = "IE";
+    public void beforeMethod(@Optional("chrome") String browserName) throws Exception {
 
-        String browserCurrent = browserChrome;
 
-        switch (browserCurrent){
+        switch (browserName.toLowerCase()){
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
@@ -36,18 +40,20 @@ public class LinkedinBaseTest {
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
             break;
-            case "IE":
+            case "ie":
                 WebDriverManager.iedriver().setup();
                 driver = new InternetExplorerDriver();
             break;
-            default: System.out.println("select nothing");
+            default:
+                throw new Exception("browser "+browserName+" is not supported") ;
+
         }
 
         driver.get("https://www.linkedin.com/");
         linkedinLoginPage = new LinkedinLoginPage(driver);
     }
 
-    @AfterMethod (alwaysRun = true)
+    @AfterMethod //(alwaysRun = true)
     public void afterMethod (){
         driver.quit();
     }

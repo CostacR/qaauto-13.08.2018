@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Login tests suite" verbose="1" >
+
+    <test name="Firefox" >
+        <parameter name="browserName" value="FireFox"/>
+
+        <classes>
+            <class name="test.LinkedinTest">
+            </class>
+        </classes>
+    </test>
+
+    <test name="chrome" >
+        <parameter name="browserName" value="chrome"/>
+
+        <classes>
+            <class name="test.LinkedinTest">
+            </class>
+        </classes>
+    </test>
+
+</suite>

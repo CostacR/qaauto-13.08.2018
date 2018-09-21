@@ -12,7 +12,7 @@ public class LinkedinTest extends LinkedinBaseTest{
     public Object[][] validDataProvider() {
         return new Object[][]{
 //              {"email", "password"}
-                { "nsczxfxthntq@gmail.com", "4838960q" },
+                { "nsczxfxthntq@gmail.com", "4838960w" },
 //                { "Nsczxfxthntq@gmail.com", "4838960q" },
 //                { "nsczxfxthntq@gmail.COM", "4838960q" },
         };

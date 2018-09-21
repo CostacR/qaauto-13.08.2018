@@ -32,7 +32,7 @@ public class LinkedinLoginPage extends LinkedinBasePage{
     public LinkedinLoginPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver, this);
-        assertElementIsVisible(signInButton, 5, "Login page is not loaded.");
+//        assertElementIsVisible(signInButton, 5, "Login page is not loaded.");
     //this - текущий. Вычитать локаторы из елементов FindBy
 //        PageFactory.initElements(driver, page.LinkedinHomePage.class);                                     //вичитывает аннотации из LoginHomePage
     }                                                                                                   //таблица соответствий (название / тип локатора/ локатор)
@@ -67,14 +67,6 @@ public class LinkedinLoginPage extends LinkedinBasePage{
 //            return (T) this                                                           //другие варианеты записи
 //            return (T) PageFactory.initElements(driver, page.LinkedinLoginPage.class);     //другие варианеты записи
         }
-    }
-
-    public boolean isLoginCorrectEntered(String userEmail) {
-        return  !userEmail.equals("");
-    }
-    public boolean isPasswordCorrectEntered(String userPassword) {
-
-        return !userPassword.equals("");
     }
 
     public LinkedInRequestPasswordResetPage resetLinkClick() {
