@@ -1,23 +1,60 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Login tests suite" verbose="1" >
+<suite name="Login tests suite" verbose="1" parallel="tests">
 
-    <test name="Firefox" >
-        <parameter name="browserName" value="FireFox"/>
-
+    <test name="firefoxLinkedinUA" parallel="true">
+        <parameter name="browserName" value="firefox" />
+        <parameter name="urLink" value="https://ua.linkedin.com/"/>
         <classes>
-            <class name="test.LinkedinTest">
+            <class name="test.LinkedSearchTest">
             </class>
         </classes>
     </test>
 
-    <test name="chrome" >
+    <test name="firefoxLinkedinRU" parallel="true">
+        <parameter name="browserName" value="firefox" />
+        <parameter name="urLink" value="https://ru.linkedin.com/"/>
+        <classes>
+            <class name="test.LinkedSearchTest">
+            </class>
+        </classes>
+    </test>
+
+    <test name="firefoxLinkedinDE" parallel="true">
+        <parameter name="browserName" value="firefox" />
+        <parameter name="urLink" value="https://de.linkedin.com/"/>
+        <classes>
+            <class name="test.LinkedSearchTest">
+            </class>
+        </classes>
+    </test>
+
+    <test name="chromeLinkedinUA" parallel="true">
         <parameter name="browserName" value="chrome"/>
-
+        <parameter name="urLink" value="https://ua.linkedin.com/"/>
         <classes>
-            <class name="test.LinkedinTest">
+            <class name="test.LinkedSearchTest">
             </class>
         </classes>
     </test>
+
+    <test name="chromeLinkedinRU" parallel="true">
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="urLink" value="https://ru.linkedin.com/"/>
+        <classes>
+            <class name="test.LinkedSearchTest">
+            </class>
+        </classes>
+    </test>
+
+    <test name="chromeLinkedinDE" parallel="true">
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="urLink" value="https://de.linkedin.com/"/>
+        <classes>
+            <class name="test.LinkedSearchTest">
+            </class>
+        </classes>
+    </test>
+
 
 </suite>
