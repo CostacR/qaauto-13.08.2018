@@ -22,18 +22,10 @@ public class LinkedinBaseTest {
 //    String browserIE = "IE";
 //    String browserCurrent = browserChrome;
 
-//                { "ua.linkedin.com"},
-//                { "ru.linkedin.com"},
-//                { "de.linkedin.com"}
-
-    @Parameters({"browserName"
-            , "urLink"
-    })
+    @Parameters({"browserName", "urLink"})
     @BeforeMethod
     public void beforeMethod(@Optional("chrome") String browserName,
-                            @Optional ("https://ua.linkedin.com/") String urLink
-    ) throws Exception {
-
+                            @Optional ("https://ua.linkedin.com/") String urLink) throws Exception {
 
         switch (browserName.toLowerCase()){
             case "chrome":
@@ -51,7 +43,6 @@ public class LinkedinBaseTest {
             break;
             default:
                 throw new Exception("browser "+browserName+" is not supported") ;
-
         }
 
         driver.get(urLink);
