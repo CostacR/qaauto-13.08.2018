@@ -51,6 +51,6 @@ public class LinkedinBaseTest {
 
     @AfterMethod //(alwaysRun = true)
     public void afterMethod (){
-//        driver.quit();
+        driver.quit();
     }
 }
