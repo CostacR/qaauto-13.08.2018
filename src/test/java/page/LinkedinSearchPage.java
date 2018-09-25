@@ -44,7 +44,7 @@ public class LinkedinSearchPage extends LinkedinBasePage{
 
     public boolean isPageLoaded(){
         return getCurrentUrl().contains("/search/results/")
-                && getCurrentTitle().contains("Поиск")
+//                && getCurrentTitle().contains("Поиск")
                 && searchResultTotal.isDisplayed()
                 ;
     }

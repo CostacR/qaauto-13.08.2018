@@ -38,8 +38,8 @@ public class LinkedinLoginPage extends LinkedinBasePage{
     }                                                                                                   //таблица соответствий (название / тип локатора/ локатор)
 
     public boolean isPageLoaded() {
-         return getCurrentUrl().equals("https://www.linkedin.com/")
-                && getCurrentTitle().contains("LinkedIn: Log In or Sign Up")
+         return getCurrentUrl().toLowerCase().contains(".linkedin.com/")
+                && getCurrentTitle().toLowerCase().contains("linkedin")
                 && signInButton.isDisplayed()
                 ;}
 

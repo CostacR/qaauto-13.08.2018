@@ -35,17 +35,12 @@ public class LinkedInLoginScenarioTest extends LinkedinBaseTest {
     @Test (dataProvider ="validDataProvider")
     public void scenarioTest(String userEmail, String userPassword, String searchItem)  {
 
-//        Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");
-        System.out.println("ENTERSD");
+        Assert.assertTrue(linkedinLoginPage.isPageLoaded(), "Login page is not loaded.");
         LinkedinHomePage linkedinHomePage = linkedinLoginPage.login(userEmail, userPassword);
-
         Assert.assertTrue(linkedinHomePage.isLogOutButtonAble(),"'Log Out' button disable"); //проверка кнопки LogOut
-
         LinkedinSearchPage linkedinSearchPage = linkedinHomePage.search(searchItem);
         Assert.assertTrue(linkedinSearchPage.isPageLoaded(), "Search page is not loaded");
-
         Assert.assertEquals(linkedinSearchPage.searchSizeResult(), 10, "Wrong number search results on SearchPage");
-
         driver.manage().window().maximize();
         linkedinSearchPage.scrollDownPage();
 

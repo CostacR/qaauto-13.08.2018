@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Search tests suite" verbose="1" >
+    <parameter name="browserName" value="FireFox"/>
+
+    <test name="Search test" >
+
+
+        <classes>
+            <class name="test.LinkedInLoginScenarioTest">
+                <methods>
+                    <include name="scenarioTest" />
+                </methods>
+            </class>
+        </classes>
+
+    </test>
+
+</suite>
